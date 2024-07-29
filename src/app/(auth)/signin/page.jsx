@@ -1,8 +1,7 @@
 "use client";
 import Loader from "@/components/Loader";
 import { getProviders, signIn } from "next-auth/react";
-import Image from "next/image";
-import Link from "next/link";
+
 import { useEffect, useState } from "react";
 
 export default function SignIn({ searchParams }) {

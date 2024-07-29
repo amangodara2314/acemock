@@ -31,7 +31,8 @@ export const authOptions = {
       }
     },
     async redirect({ url, baseUrl }) {
-      return "/dashboard";
+      const redirectUrl = new URL("/dashboard", baseUrl).href;
+      return redirectUrl;
     },
     async session({ session, token }) {
       if (token.email) {
