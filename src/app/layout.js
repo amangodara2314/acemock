@@ -1,7 +1,10 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import GlobalContext from "@/context/GlobalContext";
+import "tailwindcss/tailwind.css";
+import SessionWrapper from "@/components/SessionWrapper";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata = {
   title: "Create Next App",
@@ -11,7 +14,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <SessionWrapper>
+        <body className={inter.className}>
+          <main className={`${inter.variable} font-sans`}>
+            <GlobalContext>{children}</GlobalContext>
+          </main>
+        </body>
+      </SessionWrapper>
     </html>
   );
 }
