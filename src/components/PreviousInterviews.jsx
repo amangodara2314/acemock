@@ -46,7 +46,7 @@ function PreviousInterviews() {
       <div className="flex flex-wrap gap-6 lg:justify-start justify-center">
         {interviews.length == 0 ? (
           <div className="text-gray-600 text-sm">
-            You Haven't Given A Interview Yet Click On Create Button And Get
+            You Have Not Given A Interview Yet Click On Create Button And Get
             Started With Your First Interview...
           </div>
         ) : (

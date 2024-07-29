@@ -29,7 +29,7 @@ export default function SignIn({ searchParams }) {
           </h1>
           <p className="text-gray-800">
             Connect with us to explore new opportunities and experiences.
-            Whether you're joining us for the first time or coming back, we're
+            Whether you are joining us for the first time or coming back, we are
             excited to have you here!
           </p>
         </div>
