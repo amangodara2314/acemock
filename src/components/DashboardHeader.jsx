@@ -8,7 +8,7 @@ function DashHeader() {
   const [isVisible, setIsVisible] = useState(false);
   return (
     <header className="flex justify-between items-center shadow-md px-6 py-3 bg-[#F8F8F8] relative">
-      <h1 className="text-xl font-bold text-purple-600">AcePrep</h1>
+      <h1 className="text-xl font-bold text-purple-600">AceMock</h1>
       <div
         onClick={() => {
           setIsVisible(!isVisible);

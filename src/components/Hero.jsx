@@ -12,7 +12,7 @@ export default function Hero() {
       <p className="text-xl font-thin mb-8 w-[80%] md:w-[65%]">
         Our AI-driven platform provides the most comprehensive interview
         preparation experience. With personalized feedback and tailored
-        practice, you’re set to excel in your next interview and secure your
+        practice, you are set to excel in your next interview and secure your
         dream job offer.
       </p>
       <button

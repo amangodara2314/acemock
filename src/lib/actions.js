@@ -131,7 +131,7 @@ export const createOrder = async (amount) => {
   try {
     const options = {
       amount: amount * 100, // Amount in paise
-      currency: "USD",
+      currency: "INR",
       receipt: order_id,
     };
 
@@ -142,7 +142,7 @@ export const createOrder = async (amount) => {
       status: 200,
       id: order_id,
       razorpay_order,
-      amount: 70000,
+      amount: options.amount,
     };
   } catch (error) {
     console.error("Error creating order:", error);

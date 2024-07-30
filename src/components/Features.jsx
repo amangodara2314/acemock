@@ -67,7 +67,7 @@ const Features = () => {
               : "flex-col sm:flex-row"
           }`}
         >
-          <div className="text-container w-1/2 p-6">
+          <div className="text-container w-[88%] sm:w-1/2 p-6">
             <h2 className="text-white font-bold text-2xl mb-1">
               {feature.title}
             </h2>

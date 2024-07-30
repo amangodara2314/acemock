@@ -1,19 +1,18 @@
 "use client";
 import Choose from "@/components/ChoosePlan";
 import DashHeader from "@/components/DashboardHeader";
-import { useState } from "react";
 
 function UpgradePage() {
   return (
     <>
       <DashHeader />
-      <div className="w-full h-full py-10 flex flex-col gap-8 justify-center items-center px-16">
-        <h1 className="sm:text-2xl font-bold sm:mb-6 text-gray-700">
+      <div className="w-full h-full py-10 flex flex-col gap-4 justify-center items-center px-16">
+        <h1 className="sm:text-2xl font-bold sm:mb-4 text-gray-700">
           Upgrade Your Plan
         </h1>
         <div className="flex gap-8 flex-wrap justify-center">
           {/* Plan Card */}
-          <div className="bg-gray-50 p-6 w-80 rounded-lg shadow-md text-center relative pb-12">
+          <div className="bg-gray-50 p-6 w-80 rounded-lg shadow-md text-center relative">
             <h2 className="text-xl font-bold text-black">$1/day</h2>
             <p className="text-gray-500 mb-6">Billed daily</p>
             <ul className="text-gray-500 mb-6 space-y-2">
@@ -120,7 +119,7 @@ function UpgradePage() {
             </ul>
             <Choose plan={1} />
           </div>
-          <div className="bg-gray-50 p-6 w-80 rounded-lg shadow-md text-center relative pb-12">
+          <div className="bg-gray-50 p-6 w-80 rounded-lg shadow-md text-center relative">
             <h2 className="text-xl font-bold text-black">$5/weekly</h2>
             <p className="text-gray-500 mb-6">Billed weekly</p>
             <ul className="text-gray-500 mb-6 space-y-2">
@@ -227,7 +226,7 @@ function UpgradePage() {
             </ul>
             <Choose plan={5} />
           </div>{" "}
-          <div className="bg-gray-50 p-6 w-80 rounded-lg shadow-md text-center relative pb-12">
+          <div className="bg-gray-50 p-6 w-80 rounded-lg shadow-md text-center relative">
             <h2 className="text-xl font-bold text-black">$15/monthly</h2>
             <p className="text-gray-500 mb-6">Billed monthly </p>
             <ul className="text-gray-500 mb-6 space-y-2">

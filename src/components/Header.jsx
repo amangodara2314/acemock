@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <header className="py-4 px-0 sm:px-8">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-2xl font-semibold">AcePrep</h1>
+        <h1 className="text-2xl font-semibold">AceMock</h1>
         <div className="flex items-center gap-4">
           <nav className="flex space-x-3 sm:space-x-4">
             <a href="#features" className="text-gray-200 hover:text-white">

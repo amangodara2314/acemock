@@ -1,8 +1,8 @@
 "use client";
+
 import Loader from "@/components/Loader";
 import Questions from "@/components/QuestionsSection";
 import SpeechToTextButton from "@/components/SpeechToText";
-import TextToSpeechButton from "@/components/TextToSpeechButton";
 import { useGlobalContext } from "@/context/GlobalContext";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -13,38 +13,59 @@ import useSWR from "swr";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 function Page({ params }) {
-  const {
-    interviews,
-    setInterviews,
-    questions,
-    setQuestions,
-    loading,
-    setLoading,
-  } = useGlobalContext();
+  const { questions, setQuestions, loading, setLoading } = useGlobalContext();
   const router = useRouter();
   const { data: session } = useSession();
+  const [isSubscriptionValid, setIsSubscriptionValid] = useState(null);
   const [answers, setAnswers] = useState(null);
   const { data, error, isLoading } = useSWR("/interview/" + params.id, fetcher);
   const [selectedQuestion, setSelectedQuestion] = useState(0);
+
   useEffect(() => {
-    if (data) {
-      if (data.status == 200) {
-        setQuestions(data.interviews.questions);
-        setAnswers(
-          data.interviews.questions?.map((question) => {
-            return { question: question.question, userAnswer: "" };
-          })
+    async function confirmSubscription() {
+      if (!session || !session.user) {
+        router.replace("/signin");
+        return;
+      }
+      try {
+        const response = await fetch(
+          "/subscription/verify/" + session.user.id,
+          {
+            method: "GET",
+          }
         );
-        console.log(answers);
-      } else {
-        return (
-          <div className="text-center mt-16 font-bold text-xl">
-            Error loading data: {data.msg}
-          </div>
-        );
+        const result = await response.json();
+        if (result.status !== 200) {
+          toast.error(result.msg);
+          setIsSubscriptionValid(false);
+          router.replace("/dashboard");
+        } else {
+          setIsSubscriptionValid(true);
+        }
+      } catch (error) {
+        toast.error("Error checking subscription status.");
+        setIsSubscriptionValid(false);
       }
     }
-  }, [data]);
+
+    confirmSubscription();
+  }, [session, router]);
+
+  useEffect(() => {
+    if (isSubscriptionValid === true && data) {
+      if (data.status === 200) {
+        setQuestions(data.interviews.questions);
+        setAnswers(
+          data.interviews.questions?.map((question) => ({
+            question: question.question,
+            userAnswer: "",
+          }))
+        );
+      } else {
+        toast.error("Error loading data: " + data.msg);
+      }
+    }
+  }, [isSubscriptionValid, data]);
 
   if (isLoading && !answers)
     return (
@@ -52,6 +73,7 @@ function Page({ params }) {
         <Loader />
       </div>
     );
+
   if (error)
     return (
       <div className="text-center mt-16 font-bold text-xl">
@@ -68,28 +90,32 @@ function Page({ params }) {
     });
     setAnswers(updatedAnswers);
   };
+
   const handleSubmit = async () => {
     setLoading(true);
-    const response = await fetch("/interview/" + params.id, {
-      method: "POST",
-      body: JSON.stringify({
-        answers: answers,
-        user: session.user,
-        interview_id: params.id,
-      }),
-    });
-
-    const data = await response.json();
-    if (data.status == 200) {
+    try {
+      const response = await fetch("/interview/" + params.id, {
+        method: "POST",
+        body: JSON.stringify({
+          answers: answers,
+          user: session.user,
+          interview_id: params.id,
+        }),
+      });
+      const data = await response.json();
+      if (data.status === 200) {
+        toast.success("Submit Successful");
+        router.replace("/dashboard/interview/details/" + data.details_id);
+      } else {
+        toast.error(data.msg);
+      }
+    } catch (error) {
+      toast.error("Error submitting answers.");
+    } finally {
       setLoading(false);
-      toast.success("Submit Successfull");
-      router.replace("/dashboard/interview/details/" + data.details_id);
-    } else {
-      setLoading(false);
-
-      toast.error(data.msg);
     }
   };
+
   return (
     answers && (
       <div className="w-full h-full py-5 lg:py-10 flex lg:flex-row flex-col gap-2 lg:gap-8 justify-center px-5 lg:px-16">

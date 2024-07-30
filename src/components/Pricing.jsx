@@ -33,14 +33,15 @@ function Pricing() {
   return (
     <div
       ref={sectionRef}
+      id="pricing"
       className="w-full h-full mb-20 flex flex-col gap-0 justify-center items-center px-16"
     >
-      <h1 className="sm:text-2xl font-bold sm:mb-6 text-white">
+      <h1 className="sm:text-2xl font-bold mb-6 text-white">
         Upgrade Your Plan
       </h1>
       <div className="flex gap-8 flex-wrap justify-center">
         {/* Plan Card */}
-        <div className="bg-black border-[1px] border-gray-700 rounded text-white p-6 w-80 shadow text-center relative pb-12">
+        <div className="bg-black border-[1px] border-gray-700 rounded text-white p-6 w-80 shadow text-center relative">
           <h2 className="text-xl font-bold">$1/day</h2>
           <p className="mb-6">Billed daily</p>
           <ul className="mb-6 space-y-2">
@@ -144,7 +145,7 @@ function Pricing() {
           </ul>
           <Choose plan={1} />
         </div>
-        <div className="bg-black border-[1px] border-gray-700 rounded text-white p-6 w-80 shadow text-center relative pb-12">
+        <div className="bg-black border-[1px] border-gray-700 rounded text-white p-6 w-80 shadow text-center relative">
           <h2 className="text-xl font-bold ">$5/weekly</h2>
           <p className="mb-6">Billed weekly</p>
           <ul className="mb-6 space-y-2">
@@ -248,7 +249,7 @@ function Pricing() {
           </ul>
           <Choose plan={5} />
         </div>{" "}
-        <div className="bg-black border-[1px] border-gray-700 rounded text-white p-6 w-80 shadow text-center relative pb-12">
+        <div className="bg-black border-[1px] border-gray-700 rounded text-white p-6 w-80 shadow text-center relative">
           <h2 className="text-xl font-bold ">$15/monthly</h2>
           <p className="mb-6">Billed monthly </p>
           <ul className="mb-6 space-y-2">
