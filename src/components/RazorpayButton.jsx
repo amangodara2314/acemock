@@ -24,7 +24,6 @@ const RazorpayButton = ({ amount, userId }) => {
 
   const handlePayment = useCallback(async () => {
     try {
-      console.log(amount, amount * 83);
       const order = await createOrder(amount);
       if (order?.status !== 200) {
         toast.error(order.msg ? order.msg : "Something went wrong");

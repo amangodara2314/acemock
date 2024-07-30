@@ -14,8 +14,8 @@ const groq = new Groq({
 });
 
 const instance = new Razorpay({
-  key_id: "rzp_test_x05ld753Ga9eFk",
-  key_secret: "wgTVEx9VWx0XXvgIFC8nJx4X",
+  key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
+  key_secret: process.env.RAZORPAY_SECRET,
 });
 
 export async function createUserInDB({ email, name }) {
