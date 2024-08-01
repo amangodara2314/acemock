@@ -1,9 +1,12 @@
 "use client";
 import { useState } from "react";
 import Popup from "./Popup";
+import { useSession } from "next-auth/react";
 
 function CreateButton() {
   const [showPopup, setShowPopup] = useState(false);
+  const { data } = useSession();
+  console.log(data?.user);
   const handleCreateClick = () => {
     setShowPopup(true);
   };

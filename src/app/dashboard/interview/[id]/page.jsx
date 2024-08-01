@@ -29,33 +29,18 @@ function Page({ params }) {
       }
       try {
         const response = await fetch(
-          `/subscription/verify/${session.user.id}`,
+          "/subscription/verify/" + session.user.id,
           {
             method: "GET",
           }
         );
-
         const result = await response.json();
-
-        if (response.ok && result.status === 200) {
-          setIsSubscriptionValid(true);
-        } else {
-          const canTakeInterview = await checkInterviewAvailability(
-            session.user.id
-          );
-
-          if (!canTakeInterview) {
-            toast.error(
-              "You have either reached your daily limit on the free tier or your subscription has expired. Please upgrade to continue."
-            );
-          } else {
-            toast.error(
-              result.msg || "There was an issue verifying your subscription."
-            );
-          }
-
+        if (result.status !== 200) {
+          toast.error(result.msg);
           setIsSubscriptionValid(false);
           router.replace("/dashboard");
+        } else {
+          setIsSubscriptionValid(true);
         }
       } catch (error) {
         toast.error("Error checking subscription status.");
@@ -64,7 +49,7 @@ function Page({ params }) {
     }
 
     confirmSubscription();
-  }, [session, router]);
+  }, [session]);
 
   useEffect(() => {
     if (isSubscriptionValid === true && data) {

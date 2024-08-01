@@ -1,11 +1,28 @@
+import { checkInterviewAvailability } from "@/lib/actions";
 import { connectToDatabase } from "@/lib/database";
 import Subscription from "@/models/subscription.model";
+import User from "@/models/user.model";
 import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
   try {
     await connectToDatabase();
+    const user = await User.findById(params.id);
+    if (!user) {
+      return NextResponse.json({
+        msg: "User Not Found",
+        status: 404,
+      });
+    }
 
+    const freeTier = await checkInterviewAvailability(user._id);
+    console.log(freeTier);
+    if (freeTier == true) {
+      return NextResponse.json({
+        msg: "Free Tier",
+        status: 200,
+      });
+    }
     const subscription = await Subscription.findOne({ userId: params.id });
 
     if (!subscription) {

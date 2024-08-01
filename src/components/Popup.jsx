@@ -41,21 +41,21 @@ function Popup({ setShowPopup }) {
     setLoading(true);
 
     try {
-      console.log(data.user);
-      const response = await fetch("/subscription/verify/" + data.user.id, {
-        method: "GET",
-      });
-      const result = await response.json();
-      if (result.status != 200) {
-        const canTakeInterview = await checkInterviewAvailability(data.user.id);
+      // console.log(data.user);
+      // const response = await fetch("/subscription/verify/" + data.user.id, {
+      //   method: "GET",
+      // });
+      // const result = await response.json();
+      // if (result.status != 200) {
+      //   const canTakeInterview = await checkInterviewAvailability(data.user.id);
 
-        if (!canTakeInterview) {
-          toast.error(
-            "You have either reached your daily limit on the free tier or your subscription has expired. Please upgrade to continue."
-          );
-          return;
-        }
-      }
+      //   if (!canTakeInterview) {
+      //     toast.error(
+      //       "You have either reached your daily limit on the free tier or your subscription has expired. Please upgrade to continue."
+      //     );
+      //     return;
+      //   }
+      // }
       const res = await getInterview({
         jobRole: formData.jobRole,
         experience: formData.experience,

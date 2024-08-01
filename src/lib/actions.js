@@ -18,6 +18,8 @@ const instance = new Razorpay({
 });
 
 export const checkInterviewAvailability = async (userId) => {
+  console.log("called check");
+  await connectToDatabase();
   const user = await User.findById(userId);
 
   const today = new Date().toISOString().slice(0, 10);
@@ -30,11 +32,13 @@ export const checkInterviewAvailability = async (userId) => {
     user.lastInterviewDate = new Date();
   }
 
-  if (user.interviewCount >= 2) {
+  if (user.interviewCount > 2) {
+    console.log("false", user.interviewCount);
     return false;
   }
 
   user.interviewCount += 1;
+  console.log(user);
   await user.save();
   return true;
 };
@@ -68,7 +72,7 @@ export async function createUserInDB({ email, name }) {
 }
 
 export async function findUserByEmail(email) {
-  console.log("finding one");
+  console.log("finding one with email :", email);
   return await User.findOne({ email: email });
 }
 

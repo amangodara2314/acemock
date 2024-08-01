@@ -57,12 +57,7 @@ export const authOptions = {
     },
     async jwt({ token, user }) {
       if (user) {
-        console.log(user); // this user is returning {
-        //   id: '152611756',
-        //   name: 'Aman Godara',
-        //   email: 'amangodara5686@gmail.com',
-        //   image: 'https://avatars.githubusercontent.com/u/152611756?v=4'
-        // } not the database user
+        console.log(user);
         token.email = user.email;
         token.name = user.name;
       }
