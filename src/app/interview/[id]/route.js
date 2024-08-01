@@ -74,7 +74,7 @@ export async function POST(request, { params }) {
           max_tokens: 8000,
           n: 1,
           stop: null,
-          temperature: 0.5,
+          temperature: 0.4,
         });
 
         let res = chatCompletion.choices[0]?.message.content || "";

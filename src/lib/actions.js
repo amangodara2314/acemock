@@ -107,7 +107,7 @@ export async function getInterview({ jobRole, experience, techStack }) {
   - If the experience is more than 5 years, the questions should cover advanced concepts and problem-solving.
   `;
   const prompt = `
-  Generate a list of 30 interview questions for a ${jobRole} role with a tech stack of ${techStack} and ${experience} years of experience. The questions should be appropriate for someone with ${experience} years of experience. Each question should be represented in JSON format with a field named "question". Include the code: ${randomElement}.
+  Generate a list of 15 to 20 interview questions for a ${jobRole} role with a tech stack of ${techStack} and ${experience} years of experience. The questions should be appropriate for someone with ${experience} years of experience. Each question should be represented in JSON format with a field named "question". Include the code: ${randomElement}.
   ${experienceContext}
   Provide only the JSON content, without any additional text or explanation.
   `;
@@ -122,7 +122,7 @@ export async function getInterview({ jobRole, experience, techStack }) {
         { role: "user", content: prompt },
       ],
       model: "llama-3.1-70b-versatile",
-      temperature: 0.8,
+      temperature: 0.5,
       max_tokens: 1500,
       top_p: 0.9,
       stream: false,
