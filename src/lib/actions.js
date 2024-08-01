@@ -8,7 +8,6 @@ import crypto from "crypto";
 import mongoose from "mongoose";
 import { connectToDatabase } from "./database";
 import Groq from "groq-sdk";
-import { title } from "process";
 const groq = new Groq({
   apiKey: process.env.GROQ_KEY,
 });
@@ -17,6 +16,28 @@ const instance = new Razorpay({
   key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
   key_secret: process.env.RAZORPAY_SECRET,
 });
+
+export const checkInterviewAvailability = async (userId) => {
+  const user = await User.findById(userId);
+
+  const today = new Date().toISOString().slice(0, 10);
+  const lastInterviewDate = user.lastInterviewDate
+    ? user.lastInterviewDate.toISOString().slice(0, 10)
+    : null;
+
+  if (lastInterviewDate !== today) {
+    user.interviewCount = 0;
+    user.lastInterviewDate = new Date();
+  }
+
+  if (user.interviewCount >= 2) {
+    return false;
+  }
+
+  user.interviewCount += 1;
+  await user.save();
+  return true;
+};
 
 export async function createUserInDB({ email, name }) {
   try {

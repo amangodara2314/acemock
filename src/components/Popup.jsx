@@ -5,7 +5,11 @@ import { useState } from "react";
 import Loader from "./Loader";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { getInterview, saveInterview } from "@/lib/actions";
+import {
+  checkInterviewAvailability,
+  getInterview,
+  saveInterview,
+} from "@/lib/actions";
 import { useSession } from "next-auth/react";
 
 function Popup({ setShowPopup }) {
@@ -43,8 +47,14 @@ function Popup({ setShowPopup }) {
       });
       const result = await response.json();
       if (result.status != 200) {
-        toast.error(result.msg);
-        return;
+        const canTakeInterview = await checkInterviewAvailability(data.user.id);
+
+        if (!canTakeInterview) {
+          toast.error(
+            "You have either reached your daily limit on the free tier or your subscription has expired. Please upgrade to continue."
+          );
+          return;
+        }
       }
       const res = await getInterview({
         jobRole: formData.jobRole,
