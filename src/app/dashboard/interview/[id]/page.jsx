@@ -103,6 +103,7 @@ function Page({ params }) {
         }),
       });
       const data = await response.json();
+      console.log(data);
       if (data.status === 200) {
         toast.success("Submit Successful");
         router.replace("/dashboard/interview/details/" + data.details_id);
